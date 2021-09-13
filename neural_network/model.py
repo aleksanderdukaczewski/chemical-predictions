@@ -84,6 +84,7 @@ X = pd.concat([descriptors, aromatic_proportion, non_carbon_proportion], axis=1)
 Y = comp.iloc[:,1]
 
 #Splitting data into training and test (20%) data sets
+# Change test data set size to 10%,15% ,20% and 20% and compare rmse and r^2 values
 from sklearn.model_selection import train_test_split
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0)
 X_train_shape = X_train.shape
@@ -110,11 +111,13 @@ from sklearn.metrics import mean_squared_error
 from math import sqrt
 rmse_linear_Y_train_pred = sqrt(mean_squared_error(Y_train, linear_Y_train_pred))
 rmse_linear_Y_train_pred
+print(' Training rmse: ' + str(rmse_linear_Y_train_pred))
 
 #Calculating R^2 Score 
 from sklearn.metrics import r2_score
 linear_Y_train_score = r2_score(Y_train, linear_Y_train_pred)
 linear_Y_train_score
+print('Training r^2:'+ str(linear_Y_train_score))
 
 #Plotting linear regression on graph 
 plt.figure(figsize=(5,5))
@@ -137,10 +140,12 @@ print('Intercept:', linear.intercept_)
 #Calculating RMSE
 rmse_linear_Y_test_pred = sqrt(mean_squared_error(Y_test, linear_Y_test_pred))
 rmse_linear_Y_test_pred
+print('Testing rmse: ' + str(rmse_linear_Y_test_pred))
 
 #Calculating R^2 Score 
 linear_Y_test_score = r2_score(Y_test, linear_Y_test_pred)
 linear_Y_test_score
+print('Testing r^2:'+ str(linear_Y_test_score))
 
 #Plotting testing data 
 plt.figure(figsize=(5,5))
@@ -180,10 +185,12 @@ ann_Y_train_pred
 #Calculating RMSE
 rmse_ann_Y_train_pred = sqrt(mean_squared_error(Y_train, ann_Y_train_pred))
 rmse_ann_Y_train_pred
+print('Training rmse: ' + str(rmse_ann_Y_train_pred))
 
 #Calculating R^2 Score 
 ann_Y_train_score = r2_score(Y_train, ann_Y_train_pred)
 ann_Y_train_score
+print('Training ANN r^2:'+ str(ann_Y_train_score))
 
 #Test data set 
 ann_Y_test_pred = ann.predict(X_test)
@@ -192,10 +199,12 @@ ann_Y_test_pred
 #Calculating RMSE
 rmse_ann_Y_test_pred = sqrt(mean_squared_error(Y_test, ann_Y_test_pred))
 rmse_ann_Y_test_pred
+print('Training rmse: ' + str(rmse_ann_Y_test_pred))
 
 #Calculating R^2 Score
 ann_Y_test_score = r2_score(Y_test, ann_Y_test_pred)
 ann_Y_test_score
+print('Testing ANN r^2:'+ str(ann_Y_train_score))
 
 #Molecule number array for ANN
 mol_numbers = np.arange(1, 230, 1).reshape(229,1)
