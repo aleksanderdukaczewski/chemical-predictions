@@ -13,12 +13,12 @@ import pandas as pd
 #Reading dataset
 comp = pd.read_csv("raw_esol.csv")
 comp
-comp.info()
+# comp.info()
 
 #Converting molecules from dataset columns (SMILES) into rdkit object
 from rdkit import Chem
 mol=[Chem.MolFromSmiles(drug) for drug in comp.SMILES]
-print(len(mol))
+# print(len(mol))
 mol
 
 #Using rdkit to extract molecule data to set parameters - cLogP, Molecular weight, Rotatable bonds, H-bond donor count, H-bond acceptor count, Polar surface area
@@ -91,11 +91,12 @@ X_train_shape = X_train.shape
 X_test_shape = X_test.shape
 Y_train_shape = Y_train.shape
 Y_test_shape = Y_test.shape
-print(X_train_shape)
-print(X_test_shape)
-print(Y_train_shape)
-print(Y_test_shape)
+# print(X_train_shape)
+# print(X_test_shape)
+# print(Y_train_shape)
+# print(Y_test_shape)
 
+print("LINEAR REGRESSION: \n")
 #Testing first with linear regression - and applying model onto training set
 from sklearn.linear_model import LinearRegression
 linear = LinearRegression()
@@ -119,6 +120,7 @@ linear_Y_train_score = r2_score(Y_train, linear_Y_train_pred)
 linear_Y_train_score
 print('Training r^2:'+ str(linear_Y_train_score))
 
+print()
 #Plotting linear regression on graph 
 plt.figure(figsize=(5,5))
 plt.scatter(Y_train, linear_Y_train_pred, c='b')
@@ -161,6 +163,7 @@ plt.show()
 #Linear Regression Equation 
 print('LogS = %.2f %.2f clogP %.4f MWT + %.4f RB %.2f HBD + %.2f HBA  %.2f TPSA  %.2f AP + %.2f NCP' % (linear.intercept_, linear.coef_[0], linear.coef_[1], linear.coef_[2], linear.coef_[3], linear.coef_[4], linear.coef_[5], linear.coef_[6], linear.coef_[7]))
 
+print("\nNEURAL NETWORK: \n")
 #Creating Neural network model - model type is artificial neural network ANN rather than GNN
 from keras.models import Sequential
 from keras.layers import Dense

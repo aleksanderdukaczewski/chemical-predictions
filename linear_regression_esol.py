@@ -7,7 +7,18 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv('./datasets/processed_esol.csv', delimiter=",")
 
-X = df[["LogP", "AromaticProportion", "Molecular Weight", "Number of Rotatable Bonds"]]
+a = []
+
+X = df[[
+      "LogP", 
+      "AromaticProportion",
+      "Molecular Weight",
+      "Number of Rotatable Bonds", 
+      "Number of H-Bond Donors", 
+      "Number of Rings", 
+      "Polar Surface Area",
+      "TotalHalogenAtoms"
+]]
 Y = df["measured log solubility in mols per litre"]
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2)
@@ -39,6 +50,11 @@ LogP = '%.2f LogP' % model.coef_[0]
 AP = '%.2f AP' % model.coef_[1]
 MW = '%.4f MW' % model.coef_[2]
 RB = '%.4f RB' % model.coef_[3]
+HB = '%d HB' % model.coef_[4]
+RINGS = '%d RINGS' % model.coef_[5]
+SA = '%.3f SA' % model.coef_[6]
+HA = '%d HA' % model.coef_[7]
+
 
 print('LogS = ' + 
       ' ' + 
@@ -50,7 +66,16 @@ print('LogS = ' +
       ' ' + 
       RB + 
       ' ' + 
-      AP)
+      AP + 
+      ' ' + 
+      HB + 
+      ' ' +
+      RINGS +
+      ' ' + 
+      SA +
+      ' ' +
+      HA
+)
 
 full = linear_model.LinearRegression()
 full.fit(X, Y)
@@ -70,6 +95,10 @@ full_LogP = '%.2f LogP' % full.coef_[0]
 full_MW = '%.4f MW' % full.coef_[1]
 full_RB = '+ %.4f RB' % full.coef_[2]
 full_AP = '%.2f AP' % full.coef_[3]
+full_HB = '%d HB' % model.coef_[4]
+full_RINGS = '%d RINGS' % model.coef_[5]
+full_SA = '%.3f SA' % model.coef_[6]
+full_HA = '%d HA' % model.coef_[7]
 print('LogS = ' + 
       ' ' + 
       full_yintercept + 
@@ -80,7 +109,15 @@ print('LogS = ' +
       ' ' + 
       full_RB + 
       ' ' + 
-      full_AP)
+      full_AP + 
+      ' ' + 
+      full_HB + 
+      ' ' + 
+      full_RINGS + 
+      ' ' + 
+      full_SA +
+      ' ' +
+      full_HA)
 
 # print(Y_train.shape, Y_pred_train.shape)
 # print(Y_test.shape, Y_pred_test.shape)
